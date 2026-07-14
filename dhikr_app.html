@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أذكار وأدعية — DMWM Bordeaux</title>
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #F59E0B;
+            --gold-light: #FBBF24;
+            --navy: #1E3A8A;
+            --navy-mid: #2563EB;
+            --bg1: #FFFBEB;
+            --bg2: #FDE68A;
+            --card: #ffffff;
+            --ar-bg1: #FFFBEB;
+            --ar-bg2: #FEF3C7;
+            --border: #FBBF24;
+            --text: #1F2937;
+            --muted: #6B7280;
+            --shadow: rgba(0,0,0,0.07);
+            --ph-bg: #FFFBEB;
+        }
+        body.night {
+            --bg1: #1a1a2e;
+            --bg2: #16213e;
+            --card: #2d3748;
+            --ar-bg1: #2d3748;
+            --ar-bg2: #1a202c;
+            --text: #FBD38D;
+            --border: rgba(251,211,141,0.35);
+            --muted: #a0aec0;
+            --shadow: rgba(0,0,0,0.2);
+            --ph-bg: #1a202c;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, var(--bg1), var(--bg2));
+            min-height: 100vh;
+            padding: 22px 18px;
+            transition: background 0.4s;
+        }
+
+        .header {
+            background: var(--card);
+            border-radius: 18px;
+            padding: 20px 26px;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 14px var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            transition: background 0.4s;
+        }
+        .logo-ar {
+            font-family: 'Scheherazade New', serif;
+            font-size: 32px;
+            direction: rtl;
+            color: var(--navy);
+            transition: color 0.4s;
+            line-height: 1.3;
+        }
+        body.night .logo-ar { color: #FBD38D; }
+        .logo-fr { font-size: 12px; color: var(--gold); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+        .logo-sub { font-family: 'EB Garamond', serif; font-style: italic; font-size: 13px; color: var(--muted); margin-top: 2px; }
+        .header-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-night {
+            background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+            border: none; color: #fff;
+            padding: 7px 15px; border-radius: 50px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: background 0.3s;
+        }
+        body.night .btn-night { background: linear-gradient(135deg, var(--gold), var(--gold-light)); }
+
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 14px var(--shadow);
+            transition: background 0.4s;
+        }
+        .section-title {
+            font-size: 16px; font-weight: 700; color: var(--navy);
+            margin-bottom: 20px; padding-bottom: 11px;
+            border-bottom: 1.5px solid var(--border);
+        }
+        body.night .section-title { color: #FBD38D; }
+
+        .verse-group { margin: 14px 0; }
+        .arabic {
+            font-family: 'Scheherazade New', serif;
+            font-size: 34px; line-height: 2;
+            text-align: center; direction: rtl;
+            padding: 24px 18px;
+            background: linear-gradient(135deg, var(--ar-bg1), var(--ar-bg2));
+            border-radius: 12px 12px 0 0;
+            border: 1.5px solid var(--border);
+            border-bottom: none;
+            color: var(--text); transition: all 0.4s;
+        }
+        .arabic.lg { font-size: 42px; }
+
+        .ph-block {
+            background: var(--ph-bg);
+            padding: 12px 20px;
+            border-left: 1.5px solid var(--border);
+            border-right: 1.5px solid var(--border);
+        }
+        .ph-verse {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            font-size: 18px; font-weight: 500;
+            line-height: 1.8; color: var(--navy);
+            padding: 2px 0;
+            text-align: center;
+            transition: color 0.4s;
+        }
+        body.night .ph-verse { color: var(--gold-light); }
+
+        .transl {
+            font-family: 'EB Garamond', serif;
+            font-style: italic; font-size: 15px;
+            color: var(--muted); text-align: center;
+            padding: 12px 18px;
+            background: var(--card);
+            border-radius: 0 0 12px 12px;
+            border: 1.5px solid var(--border); border-top: none;
+            line-height: 1.8; transition: background 0.4s;
+        }
+
+        .dua-label {
+            font-size: 20px; font-weight: 700;
+            color: var(--navy); margin: 24px 0 8px;
+            transition: color 0.4s;
+        }
+        body.night .dua-label { color: #FBD38D; }
+        .dua-sub { font-size: 13px; font-weight: 400; color: var(--muted); }
+        .dua-note {
+            font-family: 'EB Garamond', serif;
+            font-style: italic; font-size: 13px;
+            color: var(--muted);
+            margin: 8px 4px 0;
+            line-height: 1.7;
+        }
+
+        .ctr-wrap {
+            margin: 16px 0 6px;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 10px;
+        }
+        .ctr-row { display: flex; align-items: center; gap: 16px; }
+        .cbtn {
+            width: 48px; height: 48px; border-radius: 50%;
+            border: none; font-size: 24px; font-weight: 700;
+            cursor: pointer; transition: all 0.15s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .cbtn-m { background: #FEF3C7; color: var(--gold); }
+        .cbtn-m:hover { background: var(--gold); color: #fff; }
+        .cbtn-p { background: linear-gradient(135deg, var(--navy), var(--navy-mid)); color: #fff; }
+        .cbtn-p:hover { opacity: 0.88; }
+        .ctr-val {
+            font-size: 40px; font-weight: 700;
+            color: var(--navy); min-width: 90px; text-align: center;
+            transition: color 0.4s;
+        }
+        body.night .ctr-val { color: #FBD38D; }
+        .ctr-max { font-size: 13px; color: var(--muted); }
+
+        .prog-wrap {
+            width: 100%; max-width: 320px;
+            background: #E5E7EB; border-radius: 50px; height: 8px;
+            overflow: hidden;
+        }
+        body.night .prog-wrap { background: #4a5568; }
+        .prog-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            border-radius: 50px; transition: width 0.3s;
+        }
+        .prog-text { font-size: 13px; color: var(--muted); }
+        .done {
+            display: none;
+            background: #D1FAE5; color: #065F46;
+            padding: 6px 18px; border-radius: 50px;
+            font-size: 13px; font-weight: 700;
+        }
+        body.night .done { background: #064e3b; color: #6EE7B7; }
+
+        .btn-rst {
+            background: none; border: 1px solid var(--border);
+            color: var(--muted); padding: 5px 14px;
+            border-radius: 50px; font-size: 12px;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .btn-rst:hover { background: #FEF3C7; color: var(--gold); }
+
+        .hr { border: none; border-top: 1px solid var(--border); margin: 26px 0; opacity: 0.4; }
+
+        .guide-block {
+            background: linear-gradient(135deg, var(--ar-bg1), var(--ar-bg2));
+            border: 1.5px solid var(--border);
+            border-radius: 14px 14px 0 0; padding: 22px 20px;
+            font-family: 'Scheherazade New', serif;
+            font-size: 30px; direction: rtl;
+            color: var(--text); line-height: 1.9;
+            text-align: center;
+            transition: all 0.4s;
+        }
+        .guide-ph {
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--navy); text-align: center;
+            background: var(--ph-bg);
+            padding: 10px 20px;
+            border-left: 1.5px solid var(--border);
+            border-right: 1.5px solid var(--border);
+            transition: color 0.4s;
+        }
+        body.night .guide-ph { color: var(--gold-light); }
+        .guide-fr {
+            font-family: 'EB Garamond', serif;
+            font-style: italic; font-size: 16px;
+            color: var(--muted); text-align: center;
+            line-height: 1.8;
+            padding: 12px 18px;
+            background: var(--card);
+            border-radius: 0 0 14px 14px;
+            border: 1.5px solid var(--border); border-top: none;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, var(--ar-bg1), var(--ar-bg2));
+            border-left: 4px solid var(--gold);
+            border-radius: 10px; padding: 14px 18px;
+            margin-bottom: 18px;
+            font-size: 13px; color: var(--muted);
+            font-family: 'EB Garamond', serif; font-style: italic;
+            line-height: 1.8;
+            transition: all 0.4s;
+        }
+
+        .closing-card { border: 1.5px solid var(--gold); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div>
+        <div class="logo-ar">أَذْكَارٌ وَأَدْعِيَةٌ</div>
+        <div class="logo-fr">DMWM Bordeaux · Wird quotidien</div>
+        <div class="logo-sub">Paroles du rappel et de l'unicité</div>
+    </div>
+    <div class="header-btns">
+        <button class="btn-night" id="nightBtn" onclick="toggleNight()">Nuit</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="section-title">Le témoignage</div>
+    <div class="guide-block">لَا إِلَٰهَ إِلَّا اللَّهُ</div>
+    <div class="guide-ph">Lâ ilâha illâ Allâh</div>
+    <div class="guide-fr">Il n'y a de divinité digne d'être adorée qu'Allah — la meilleure parole de l'unicité (tawḥîd).</div>
+    <div class="ctr-wrap" style="margin-top:20px;">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d0')">−</button>
+            <div><div class="ctr-val" id="d0N">0<span class="ctr-max"> / 100</span></div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d0')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d0B"></div></div>
+        <div class="prog-text" id="d0T">0 / 100</div>
+        <div class="done" id="d0D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d0')">Réinitialiser</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="section-title">Les neuf formules</div>
+
+    <div class="dua-label">1 <span class="dua-sub">— Subḥânallâh</span></div>
+    <div class="verse-group">
+        <div class="arabic lg">سُبْحَانَ اللَّهِ</div>
+        <div class="ph-block"><div class="ph-verse">Subḥânallâh</div></div>
+        <div class="transl">Gloire et pureté à Allah.</div>
+    </div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d1')">−</button>
+            <div><div class="ctr-val" id="d1N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d1')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d1B"></div></div>
+        <div class="prog-text" id="d1T">0 / 100</div>
+        <div class="done" id="d1D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d1')">Réinitialiser</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="dua-label">2 <span class="dua-sub">— Alḥamdulillâh</span></div>
+    <div class="verse-group">
+        <div class="arabic lg">الْحَمْدُ لِلَّهِ</div>
+        <div class="ph-block"><div class="ph-verse">Alḥamdulillâh</div></div>
+        <div class="transl">Louange à Allah.</div>
+    </div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d2')">−</button>
+            <div><div class="ctr-val" id="d2N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d2')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d2B"></div></div>
+        <div class="prog-text" id="d2T">0 / 100</div>
+        <div class="done" id="d2D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d2')">Réinitialiser</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="dua-label">3 <span class="dua-sub">— Allâhu Akbar</span></div>
+    <div class="verse-group">
+        <div class="arabic lg">اللَّهُ أَكْبَرُ</div>
+        <div class="ph-block"><div class="ph-verse">Allâhu Akbar</div></div>
+        <div class="transl">Allah est le Plus Grand.</div>
+    </div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d3')">−</button>
+            <div><div class="ctr-val" id="d3N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d3')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d3B"></div></div>
+        <div class="prog-text" id="d3T">0 / 100</div>
+        <div class="done" id="d3D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d3')">Réinitialiser</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="dua-label">4 <span class="dua-sub">— Lâ ḥawla wa lâ quwwata illâ billâh</span></div>
+    <div class="verse-group">
+        <div class="arabic">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ</div>
+        <div class="ph-block"><div class="ph-verse">Lâ ḥawla wa lâ quwwata illâ billâh</div></div>
+        <div class="transl">Il n'y a de force ni de puissance qu'en Allah.</div>
+    </div>
+    <div class="dua-note">Souvent récitée dans les moments de difficulté ou pour demander l'aide d'Allah.</div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d4')">−</button>
+            <div><div class="ctr-val" id="d4N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d4')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d4B"></div></div>
+        <div class="prog-text" id="d4T">0 / 100</div>
+        <div class="done" id="d4D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d4')">Réinitialiser</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="dua-label">5 <span class="dua-sub">— Subḥânallâhi wa biḥamdih</span></div>
+    <div class="verse-group">
+        <div class="arabic">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</div>
+        <div class="ph-block"><div class="ph-verse">Subḥânallâhi wa biḥamdih</div></div>
+        <div class="transl">Gloire à Allah et louange à Lui.</div>
+    </div>
+    <div class="dua-note">Le Prophète ﷺ a mentionné son immense mérite.</div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d5')">−</button>
+            <div><div class="ctr-val" id="d5N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d5')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d5B"></div></div>
+        <div class="prog-text" id="d5T">0 / 100</div>
+        <div class="done" id="d5D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d5')">Réinitialiser</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="dua-label">6 <span class="dua-sub">— Subḥânallâhi wa biḥamdih, Subḥânallâhil-'Aẓîm</span></div>
+    <div class="verse-group">
+        <div class="arabic">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ</div>
+        <div class="ph-block"><div class="ph-verse">Subḥânallâhi wa biḥamdih, Subḥânallâhil-'Aẓîm</div></div>
+        <div class="transl">Gloire à Allah et louange à Lui. Gloire à Allah, le Très Grand.</div>
+    </div>
+    <div class="dua-note">Deux paroles légères sur la langue, lourdes dans la balance et aimées d'Allah.</div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d6')">−</button>
+            <div><div class="ctr-val" id="d6N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d6')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d6B"></div></div>
+        <div class="prog-text" id="d6T">0 / 100</div>
+        <div class="done" id="d6D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d6')">Réinitialiser</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="dua-label">7 <span class="dua-sub">— Astaghfirullâh</span></div>
+    <div class="verse-group">
+        <div class="arabic lg">أَسْتَغْفِرُ اللَّهَ</div>
+        <div class="ph-block"><div class="ph-verse">Astaghfirullâh</div></div>
+        <div class="transl">Je demande pardon à Allah.</div>
+    </div>
+    <div class="dua-note">L'istighfâr est fortement recommandé, même lorsque l'on ne pense pas avoir commis de faute.</div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d7')">−</button>
+            <div><div class="ctr-val" id="d7N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d7')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d7B"></div></div>
+        <div class="prog-text" id="d7T">0 / 100</div>
+        <div class="done" id="d7D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d7')">Réinitialiser</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="dua-label">8 <span class="dua-sub">— Ṣalât sur le Prophète ﷺ</span></div>
+    <div class="verse-group">
+        <div class="arabic">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ</div>
+        <div class="ph-block"><div class="ph-verse">Allâhumma ṣalli 'alâ Muḥammad wa 'alâ âli Muḥammad...</div></div>
+        <div class="transl">Ô Allah, prie sur Muḥammad et sur la famille de Muḥammad...</div>
+    </div>
+    <div class="dua-note">Très méritoire, notamment le vendredi.</div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d8')">−</button>
+            <div><div class="ctr-val" id="d8N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d8')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d8B"></div></div>
+        <div class="prog-text" id="d8T">0 / 100</div>
+        <div class="done" id="d8D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d8')">Réinitialiser</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="dua-label">9 <span class="dua-sub">— Ḥasbunallâhu wa ni'mal-wakîl</span></div>
+    <div class="verse-group">
+        <div class="arabic">حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ</div>
+        <div class="ph-block"><div class="ph-verse">Ḥasbunallâhu wa ni'mal-wakîl</div></div>
+        <div class="transl">Allah nous suffit, et quel excellent Protecteur !</div>
+    </div>
+    <div class="dua-note">Souvent récité pour exprimer sa confiance en Allah (tawakkul).</div>
+    <div class="ctr-wrap">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d9')">−</button>
+            <div><div class="ctr-val" id="d9N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d9')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d9B"></div></div>
+        <div class="prog-text" id="d9T">0 / 100</div>
+        <div class="done" id="d9D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d9')">Réinitialiser</button>
+    </div>
+</div>
+
+<div class="card closing-card">
+    <div class="section-title">Invocation du Coran</div>
+    <div class="info-box">Invocation du prophète Yûnus عليه السلام — sourate al-Anbiyâ, verset 87.</div>
+    <div class="guide-block" style="font-size:26px;">لَا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ</div>
+    <div class="guide-ph">Lâ ilâha illâ anta subḥânaka innî kuntu minaẓ-ẓâlimîn</div>
+    <div class="guide-fr">Il n'y a de divinité digne d'être adorée en dehors de Toi. Gloire à Toi ! J'ai été du nombre des injustes envers moi-même.</div>
+    <div class="ctr-wrap" style="margin-top:20px;">
+        <div class="ctr-row">
+            <button class="cbtn cbtn-m" onclick="dec('d10')">−</button>
+            <div><div class="ctr-val" id="d10N">0</div></div>
+            <button class="cbtn cbtn-p" onclick="inc('d10')">+</button>
+        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="d10B"></div></div>
+        <div class="prog-text" id="d10T">0 / 100</div>
+        <div class="done" id="d10D">✓ 100 fois accomplis</div>
+        <button class="btn-rst" onclick="rst('d10')">Réinitialiser</button>
+    </div>
+</div>
+
+<script>
+const IDS = ['d0','d1','d2','d3','d4','d5','d6','d7','d8','d9','d10'];
+const MAX = 100;
+const C = {};
+IDS.forEach(k => C[k] = 0);
+let isNight = false;
+
+async function loadPref(key, fallback){
+    try{
+        const res = await window.storage.get('dhikr-pref:' + key, false);
+        return res && res.value ? res.value : fallback;
+    }catch(e){ return fallback; }
+}
+async function savePref(key, value){
+    try{ await window.storage.set('dhikr-pref:' + key, String(value), false); }catch(e){}
+}
+async function loadCount(id){
+    try{
+        const res = await window.storage.get('dhikr-count:' + id, false);
+        return res && res.value ? parseInt(res.value, 10) : 0;
+    }catch(e){ return 0; }
+}
+async function saveCount(id, value){
+    try{ await window.storage.set('dhikr-count:' + id, String(value), false); }catch(e){}
+}
+
+function toggleNight() {
+    isNight = !isNight;
+    document.body.classList.toggle('night', isNight);
+    document.getElementById('nightBtn').textContent = isNight ? 'Jour' : 'Nuit';
+    savePref('night', isNight ? '1' : '0');
+}
+
+function render(k){
+    const n = document.getElementById(k+'N');
+    if (n) n.textContent = C[k];
+    const b = document.getElementById(k+'B');
+    if (b) b.style.width = Math.round(C[k]/MAX*100) + '%';
+    const t = document.getElementById(k+'T');
+    if (t) t.textContent = C[k] + ' / ' + MAX;
+    const d = document.getElementById(k+'D');
+    if (d) d.style.display = (C[k] >= MAX) ? 'block' : 'none';
+}
+
+async function inc(k) {
+    if (C[k] >= MAX) return;
+    C[k]++;
+    render(k);
+    await saveCount(k, C[k]);
+}
+
+async function dec(k) {
+    if (C[k] <= 0) return;
+    C[k]--;
+    render(k);
+    await saveCount(k, C[k]);
+}
+
+async function rst(k) {
+    C[k] = 0;
+    render(k);
+    await saveCount(k, 0);
+}
+
+async function init(){
+    for(const k of IDS){
+        C[k] = await loadCount(k);
+        render(k);
+    }
+    const nightPref = await loadPref('night', '0');
+    if (nightPref === '1') {
+        isNight = true;
+        document.body.classList.add('night');
+        document.getElementById('nightBtn').textContent = 'Jour';
+    }
+}
+init();
+</script>
+</body>
+</html>
